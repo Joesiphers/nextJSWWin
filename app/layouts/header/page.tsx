@@ -8,7 +8,7 @@ export default function Header() {
       <Link href="/">
         <div className="w-full justify-center relative z-20 m-2 inline-flex">
           <Image src="/logo.jpg" alt="WanWei" width={25} height={25} />
-          GuangZhou WanWei
+          <h1> GuangZhou WanWei</h1>
         </div>
       </Link>
       <div class="absolute top-0 right-0 w-full block text-zinc=950 z-20 text-center">
