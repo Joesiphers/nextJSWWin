@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import menuItems from "./menuItems";
 import { Fragment } from "react";

@@ -1,17 +1,15 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
 import MobiMenu from "./MobileMenu";
-import { useState } from "react";
-import menuItems from "./menuItems";
+import menuItems from "./menuItems.ts";
 
 export default function Navbar() {
   const bar = (
-    <ul class=" gap-6 text-sm md:flex md:items-end">
+    <ul className=" gap-6 text-sm md:flex md:items-end">
       {menuItems.map((item) => {
         return (
           <Link href={item.href} key={item.name}>
-            <li>{item.name}</li>
+            <li className="px-1 rounded border-dot border-2">{item.name}</li>
           </Link>
         );
       })}
@@ -20,10 +18,10 @@ export default function Navbar() {
   //const [showMobileMenu, setShowMobileMenu] = useState(false);
   return (
     <>
-      <div class="md:hidden text-right">{<MobiMenu />}</div>
-      <container class="hidden md:flex bg-slate-100 px-2   relative top-10 pt-2 justify-end">
+      <div className="md:hidden text-right">{<MobiMenu />}</div>
+      <div className="hidden md:flex  px-0.5  relative top-4 pt-2 justify-end">
         {bar}
-      </container>
+      </div>
     </>
   );
 }

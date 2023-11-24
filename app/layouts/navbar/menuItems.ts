@@ -15,31 +15,31 @@ const menuItems = [
   {
     name: "About - us",
     description: "Along understanding ",
-    href: "/about",
+    href: "/pages/about",
     icon: ChartPieIcon,
   },
   {
     name: "Products and Services",
     description: "Speak  customers",
-    href: "/products",
+    href: "/pages/products",
     icon: CursorArrowRaysIcon,
   },
   {
     name: "Tech behide",
     description: "Market leader trust",
-    href: "/tech",
+    href: "/pages/tech",
     icon: FingerPrintIcon,
   },
   {
     name: "Project Experience",
     description: "Proven fact",
-    href: "/projects",
+    href: "/pages/projects",
     icon: SquaresPlusIcon,
   },
   {
     name: "Contact",
     description: "Build strategic funnels that will convert",
-    href: "/contact",
+    href: "/pages/contact",
     icon: ArrowPathIcon,
   },
 ];
