@@ -58,7 +58,7 @@ export default function MobiMenu() {
     <Popover className="relative">
       <Popover.Button className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
         <span>
-          <Image src="/m.svg" width={34} height={40} alt="menu" />
+          <Image src="/image/m.svg" width={34} height={40} alt="menu" />
         </span>
         <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
       </Popover.Button>

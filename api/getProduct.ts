@@ -1,4 +1,4 @@
-export default function getProduct({ id }: { id: string }) {
+export default function getProduct({ id="*" }: { id: string }) {
   {
     /*const result = await fetch ('https://');
     if (!result.ok) {

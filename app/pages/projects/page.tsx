@@ -1,11 +1,11 @@
 import Link from "next/link";
-import ProCard from "./procard.tsx";
+import ProCard from "./procard";
 const projects = [
   {
     id: 1,
     name: "sinopec",
     title: "sinopec tank coated",
-    imgUrl: "/sinopec.png",
+    imgUrl: "/image/sinopec.png",
   },
 ];
 export default function Projects() {

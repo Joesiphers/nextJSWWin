@@ -54,7 +54,7 @@ before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff]
 after:dark:opacity-40 before:lg:h-[360px]*/}
         <Image
           className="dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert relative"
-          src="/offshore-platform.jpg"
+          src="/image/offshore-platform.jpg"
           alt="wwin Logo"
           fill={true}
           style={{
@@ -72,7 +72,7 @@ after:dark:opacity-40 before:lg:h-[360px]*/}
               -&gt;
             </span>
           </h2>
-          <Image src="/coated-pipe.jpg" width={600} height={401} />
+          <Image src="/image/coated-pipe.jpg" width={600} height={401} />
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
             epoxy anti-corrosion coat ing for extrem condition.
           </p>

@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getProduct } from "api/getAPI";
 
-export default function Products() {
+export default async function Products() {
+  const products = await getProduct("all");
+  //console.log("products", products);
+  // products.map((item) => console.log(item));
   return (
     <div className="w-5/6 m-auto">
       <div>
@@ -18,7 +22,7 @@ export default function Products() {
         className=""
       />
       <div className="flex justify-between mt-4 grid grid-cols-4 gap-2">
-        {productList.map((product, index) => (
+        {products.map((product, index) => (
           <div
             className="m-2  shadow border-solid border-2 border-slate-300 rounded-md"
             key={index}
@@ -26,12 +30,12 @@ export default function Products() {
             <Link
               href={{
                 pathname: `./products/detail`,
-                query: { title: ` ${product.title}` },
+                query: { id: ` ${product.id}` },
               }}
             >
               <div>{product.title}</div>
               <Image
-                src={`${product.imgUrl}`}
+                src={`${product.imgurl}`}
                 alt=""
                 width={38}
                 height={38}
@@ -45,50 +49,3 @@ export default function Products() {
     </div>
   );
 }
-const productList = [
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-  {
-    title: "CP250",
-    imgUrl: "/image/m.svg",
-    subtitle: "offshore",
-  },
-];
