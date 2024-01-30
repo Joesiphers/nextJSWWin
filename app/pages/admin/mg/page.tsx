@@ -21,17 +21,29 @@ export default async function Page() {
           {products.map((item, index) => {
             let cells = [];
             for (let property in item) {
-              cells.push(
-                <td
-                  key={item.id}
-                  className="border-solid border-2 border-indigo-600"
-                >
-                  {item[property]}
-                </td>,
-              );
+              if (property === "imgurl") {
+                cells.push(
+                  <td className="border-solid border-2 border-indigo-600">
+                    <Image
+                      src={`${item[property]}`}
+                      alt="img"
+                      width={38}
+                      height={38}
+                      className="inline"
+                    />
+                  </td>,
+                );
+              } else {
+                cells.push(
+                  <td className="border-solid border-2 border-indigo-600">
+                    {item[property]}
+                  </td>,
+                );
+              }
             }
+
             return (
-              <tr key={item.id}>
+              <tr key={index}>
                 {cells}
                 <td className="border-solid border-2 border-indigo-600">
                   <Link

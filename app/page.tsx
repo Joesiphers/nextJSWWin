@@ -1,9 +1,7 @@
 import MainPage from "./mainPage";
 import "./globals.css";
-import { Inter } from "next/font/google";
 import Navbar from "./layouts/navbar/Navbar";
 import Header from "./layouts/header/page";
-const inter = Inter({ subsets: ["latin"] });
 import Footer from "./layouts/footer.tsx";
 
 export const metadata = {
@@ -13,12 +11,8 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <body className={inter.className}>
-      <Header />
-      <main className="min-h-[94vh] pt-16 text-center">
-        <MainPage />
-      </main>
-      <Footer />
-    </body>
+    <>
+      <MainPage />
+    </>
   );
 }

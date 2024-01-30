@@ -1,4 +1,11 @@
 import AuthProvider from "./context/authContext";
+import "./globals.css";
+import { Inter } from "next/font/google";
+import Navbar from "./layouts/navbar/Navbar";
+import Header from "./layouts/header/page";
+import Footer from "./layouts/footer.tsx";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -7,8 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body>
-        <AuthProvider>{children}</AuthProvider>
+      <body className={inter.className}>
+        <AuthProvider>
+          <Header />
+          <main className="min-h-[94vh] pt-16 text-center">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
