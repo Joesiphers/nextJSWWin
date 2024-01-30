@@ -118,7 +118,13 @@ const EditableTable = ({ searchParams }) => {
                     }
                   />
                 ) : (
-                  item.imgurl
+                  <Image
+                    src={item.imgurl}
+                    alt="img"
+                    width={38}
+                    height={38}
+                    className="inline"
+                  />
                 )}
               </td>
               <td className={tdcss + " w-5/12"}>
