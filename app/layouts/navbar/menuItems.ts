@@ -3,6 +3,7 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
+/*Icons for Tabs*/
 import {
   ArrowPathIcon,
   ChartPieIcon,
@@ -20,26 +21,28 @@ const menuItems = [
   },
   {
     name: "Products and Services",
-    description: "Speak  customers",
+    description: "",
     href: "/pages/products",
     icon: CursorArrowRaysIcon,
   },
   {
     name: "Tech behide",
-    description: "Market leader trust",
     href: "/pages/tech",
     icon: FingerPrintIcon,
   },
   {
     name: "Project Experience",
-    description: "Proven fact",
     href: "/pages/projects",
     icon: SquaresPlusIcon,
   },
   {
     name: "Contact",
-    description: "Build strategic funnels that will convert",
     href: "/pages/contact",
+    icon: ArrowPathIcon,
+  },
+  {
+    name: "Admin",
+    href: "/pages/admin",
     icon: ArrowPathIcon,
   },
 ];

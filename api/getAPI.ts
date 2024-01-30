@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { dbquery } from "utils/db";
+import { dbquery } from "utils/db"; /*import from absolute path need to edit jsconfig.json*/
 export async function getProject(id: number) {
   // const fetcher = (...args) => fetch(...args).then((res) => res.json());
   // const { project, error, isLoading } = useSWR(`/api/project/${id}`, fetcher);

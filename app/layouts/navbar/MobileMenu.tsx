@@ -1,3 +1,4 @@
+/**headlessui with tailwind CSS*/
 "use client";
 import Image from "next/image";
 import menuItems from "./menuItems";
@@ -16,38 +17,6 @@ import {
   SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
 
-const solutions = [
-  {
-    name: "About us",
-    description: "Along understanding ",
-    href: "/about",
-    icon: ChartPieIcon,
-  },
-  {
-    name: "Products and Services",
-    description: "Speak  customers",
-    href: "/products",
-    icon: CursorArrowRaysIcon,
-  },
-  {
-    name: "Tech behide",
-    description: "Market leader trust",
-    href: "tech",
-    icon: FingerPrintIcon,
-  },
-  {
-    name: "Project Experience",
-    description: "Proven fact",
-    href: "/projects",
-    icon: SquaresPlusIcon,
-  },
-  {
-    name: "Contact",
-    description: "Build strategic funnels that will convert",
-    href: "/contact",
-    icon: ArrowPathIcon,
-  },
-];
 const callsToAction = [
   { name: "Watch demo", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
@@ -58,7 +27,13 @@ export default function MobiMenu() {
     <Popover className="relative">
       <Popover.Button className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
         <span>
-          <Image src="/image/m.svg" width={34} height={40} alt="menu" />
+          <Image
+            src="/image/m.svg"
+            width={34}
+            height={40}
+            style={{ width: "auto" }}
+            alt="menu"
+          />
         </span>
         <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
       </Popover.Button>
@@ -78,9 +53,10 @@ export default function MobiMenu() {
               {menuItems.map((item) => (
                 <div
                   key={item.name}
-                  className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
+                  className="group relative flex gap-x-6 rounded-lg p-2 hover:bg-gray-50"
                 >
-                  <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                  {/**delete the h-11, height of icon leave w-11, */}
+                  <div className="mt-1 flex w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
                     <item.icon
                       className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
                       aria-hidden="true"
@@ -91,7 +67,9 @@ export default function MobiMenu() {
                       {item.name}
                       <span className="absolute inset-0" />
                     </a>
+                    {/*
                     <p className="mt-1 text-gray-600">{item.description}</p>
+              */}
                   </div>
                 </div>
               ))}

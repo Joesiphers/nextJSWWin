@@ -30,7 +30,7 @@ export default async function Products() {
             <Link
               href={{
                 pathname: `./products/detail`,
-                query: { id: ` ${product.id}` },
+                query: { id: product.id },
               }}
             >
               <div>{product.title}</div>

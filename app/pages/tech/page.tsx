@@ -1,7 +1,6 @@
 import Loading from "app/layouts/loading";
 //import useSWR from "swr";
 import useSWR from "swr";
-
 async function fetchdata() {
   const data = await fetch(`https://qhjggy-5002.csb.app/table/select?all`);
   return data.json();
@@ -17,9 +16,9 @@ export default async function Tech() {
       });
   const url = `https://qhjggy-5002.csb.app/table/select?all`;
 
-  const data = await fetchdata();
+  /* const data = await fetchdata();
   console.log("fetchdata", data[0]);
-  /*const { data } = useSWR(url, fetcher);
+ const { data } = useSWR(url, fetcher);
   if (error) return <div>failed to load</div>;
   if (isLoading) {
     return <Loading />;
