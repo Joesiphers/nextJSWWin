@@ -11,6 +11,9 @@ const EditableTable = ({ searchParams }) => {
   const [data, setData] = useState(JSON.parse(products));
   const [editableRowId, setEditableRowId] = useState(null);
   const [prevData, setPrevData] = useState(data);
+  const [files, setFiles] = useState<
+    { id: number; file: File | null; url: string | ArrayBuffer | null }[]
+  >([]);
   const handleEdit = (id) => {
     setEditableRowId(id);
     setPrevData(data);
@@ -19,17 +22,22 @@ const EditableTable = ({ searchParams }) => {
   const handleSave = async (id) => {
     setEditableRowId(null);
     const toSaveData = data.filter((item) => item.id === id);
-    console.log("tosave", toSaveData, id);
-    const response = await fetch(`api`, {
+    const toSaveFiles = Object.values(files).filter((item) => item.id === id);
+    const formdata = new FormData();
+    formdata.append("data", JSON.stringify(toSaveData[0]));
+    for (let i = 0; i < toSaveFiles.length; i++) {
+      formdata.append("files", toSaveFiles[i].file);
+    }
+    // formdata.append("files", toSaveFiles);
+
+    console.log("tosave", toSaveData, toSaveFiles);
+
+    const response = await fetch(`api/products`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(toSaveData),
+      body: formdata,
     }).then((res) => res.text());
     console.log("response", JSON.stringify(response));
 
-    console.log("response", response);
     // Implement logic to save changes to the backend or update state as needed
   };
 
@@ -39,6 +47,29 @@ const EditableTable = ({ searchParams }) => {
     );
     setData(updatedData);
   };
+  const handleImageUpload = (e, id) => {
+    const choosedFiles = e.target.files;
+    console.log("files seee5", e);
+    for (let i = 0; i < choosedFiles.length; i++) {
+      const fileReader = new FileReader();
+      const file = choosedFiles[i];
+      fileReader.onload = () => {
+        setFiles((prevFiles) => [
+          ...prevFiles,
+          { id, file, url: fileReader.result },
+        ]);
+      };
+      fileReader.readAsDataURL(file);
+    }
+    console.log("files", files);
+  };
+  const handleDeleteImage = (id, url) => {
+    const updatedData = files.filter((item) => {
+      //console.log(item.id, item, item.file.name, index);
+      return item.url !== url;
+    });
+    setFiles(updatedData);
+  };
   const handleDelete = (id) => {
     const updatedData = data.filter((item) => item.id !== id);
     setData(updatedData);
@@ -46,6 +77,7 @@ const EditableTable = ({ searchParams }) => {
   const handleCancel = () => {
     setEditableRowId(null);
     setData(prevData);
+    setFiles([]);
   };
   const addNewProduct = () => {
     const addData = [
@@ -111,21 +143,39 @@ const EditableTable = ({ searchParams }) => {
                 {editableRowId === item.id ? (
                   <input
                     className="w-full border-solid border-2 border-indigo-300"
-                    type="text"
-                    value={item.imgurl}
-                    onChange={(e) =>
-                      handleInputChange(item.id, "imgurl", e.target.value)
-                    }
+                    type="file"
+                    multiple
+                    onChange={(e) => handleImageUpload(e, item.id)}
                   />
-                ) : (
-                  <Image
-                    src={item.imgurl}
-                    alt="img"
-                    width={38}
-                    height={38}
-                    className="inline"
-                  />
-                )}
+                ) : null}
+                <Image
+                  src={item.imgurl}
+                  alt="img"
+                  width={38}
+                  height={38}
+                  className="inline"
+                />
+                {files[0]
+                  ? files.map((i, index) =>
+                      item.id === i.id ? (
+                        <>
+                          <Image
+                            key={index}
+                            src={i.url}
+                            alt="img"
+                            width={38}
+                            height={38}
+                            className="inline"
+                          />
+                          <button
+                            onClick={() => handleDeleteImage(i.id, i.url)}
+                          >
+                            Del
+                          </button>
+                        </>
+                      ) : null,
+                    )
+                  : null}
               </td>
               <td className={tdcss + " w-5/12"}>
                 {editableRowId === item.id ? (
@@ -165,6 +215,13 @@ const EditableTable = ({ searchParams }) => {
       </table>
       <button onClick={addNewProduct}>Add new--</button>
       <button>Transmit</button>
+      <Image
+        src="/uploads/images/xx.jpg"
+        alt="img"
+        width={38}
+        height={38}
+        className="inline"
+      />
     </>
   );
 };
