@@ -13,10 +13,18 @@ export async function getProduct(id: number | "all" = "all") {
   const query = `SELECT * FROM products WHERE id=$1`;
   let values;
   if (id == "all") {
-    return dbquery(`SELECT * FROM products`);
+    const result = await dbquery(`SELECT * FROM products`);
+    /* for (let i = 0; i < result.length; i++) {
+      // console.log("dbquery-undefined-result", result[i].imgurl);
+
+      result[i].imgurl = JSON.parse(result[i].imgurl);
+      //  console.log("dbquery-undefined-result", result[i].imgurl);
+      return result;
+    }*/
+    return result;
   } else {
     values = [id];
-    // console.log("dbquery", dbquery);
+    console.log("dbquery", dbquery);
     return dbquery(query, values);
   }
 }

@@ -1,4 +1,4 @@
-export default function getProduct({ id="*" }: { id: string }) {
+export default function getProduct({ id = "*" }: { id: string }) {
   {
     /*const result = await fetch ('https://');
     if (!result.ok) {
@@ -9,11 +9,3 @@ export default function getProduct({ id="*" }: { id: string }) {
   }
   return result;
 }
-const result = {
-  title: "trytitle",
-  sbuTitle: "tsubtitle",
-  features: "Tfeatures",
-  imgUrl: "Try imgurl/jp.png",
-  description: "description try",
-  productApplication: "application samples",
-};

@@ -1,17 +1,23 @@
 import { dbquery } from "utils/db"; /*import from absolute path need to edit jsconfig.json*/
 
-export async function updateProduct({ recordData, imgUrl }) {
+export async function updateProduct(recordData) {
   //pattern recordData = {id:idNumber, column1: value1, column2: value2, column3: value3}
-  const Data = JSON.parse(recordData); //
-  const Url = JSON.parse(imgUrl);
-  const values = [Data.id, Data.title, Data.subtitle, Url, Data.description];
+  const Data = recordData; //
+  console.log("receivedAPIadat", Data);
+  const values = [
+    Data.id,
+    Data.title,
+    Data.subtitle,
+    Data.imgurl,
+    Data.description,
+  ];
 
   const updateQuery = `
     UPDATE products 
-    SET title = $2, subtitle = $3, imgUrl = $4, description = $5
+    SET title = $2, subtitle = $3, imgurl = $4, description = $5
     WHERE id = $1
     RETURNING *;    `;
-  console.log(updateQuery, Data, Url, typeof Url);
+  // console.log(updateQuery, Data, Url, typeof Url);
   //const res = dbquery(updateQuery);
   return dbquery(updateQuery, values);
 }
