@@ -3,10 +3,19 @@ import Link from "next/link";
 import { getProduct } from "api/getAPI";
 
 export default async function Products() {
-  const products = await getProduct("all");
-  //console.log("products", products);
+  let productsArray = await getProduct("all");
+  const parseProducts = (productsArray) => {
+    let productsDataObj = (productsArray);
+    //console.log(productsArray)
+    let updateData = [];
+    for (let i of productsDataObj) {
+      updateData.push({ ...i, imgurl: JSON.parse(i.imgurl) });
+      }
+  return updateData;;}
+  const products=parseProducts(productsArray)
   // products.map((item) => console.log(item));
-  return (
+    console.log("productsPage", products);
+return (
     <div className="w-5/6 m-auto">
       <div>
         <p className="text-4xl m-2">Pre-Coated Pipes</p>
@@ -17,7 +26,6 @@ export default async function Products() {
         fill={true}
         style={{
           objectFit: "contain",
-          position: "",
         }}
         className=""
       />
@@ -35,7 +43,7 @@ export default async function Products() {
             >
               <div>{product.title}</div>
               <Image
-                src={`${product.imgurl}`}
+                src={`${product.imgurl[0]}`}
                 alt=""
                 width={38}
                 height={38}

@@ -62,7 +62,7 @@ export default async function Page() {
                   <Link
                     href={{
                       pathname: "./edit",
-                      query: { products: JSON.stringify(products) },
+                      query: { /*products: JSON.stringify(products)*/ },
                     }}
                   >
                     <button>edit</button>

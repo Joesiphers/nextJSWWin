@@ -1,39 +1,48 @@
 "use client";
+import useSWR from "swr";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditableTr from "./editAbleTr";
-
+const parseProducts = (productsArray) => {
+  let productsDataObj = (productsArray);
+  //console.log(productsArray)
+  let updateData = [];
+  for (let i of productsDataObj) {
+    updateData.push({ ...i, imgurl: JSON.parse(i.imgurl) });
+    }
+return updateData;;}
 const tdcss = "border-solid border-2 border-indigo-600";
 const EditableTable = ({ searchParams }) => {
   //const params = useSearchParams();
-  const { products } = searchParams;
-  const parseProducts = (productsString) => {
-    let productsDataObj = JSON.parse(productsString);
-    let updateData = [];
-    for (let i of productsDataObj) {
-      updateData.push({ ...i, imgurl: JSON.parse(i.imgurl) });
-    }
+ // const { products } = searchParams;
+  //const [productsData, setProducts]=useState([])
+ // const getProducts=async ()=>await getProductsSwr ("api/products?id=all");
 
-    // console.log("productsDataObj", updateData);
-    return updateData;
-  };
 
-  //console.log("JSON.parse(products)", JSON.parse(products));
-  const [productsData, setproductsData] = useState(parseProducts(products));
-  const [editableRowId, setEditableRowId] = useState(null);
-  const [prevproductsData, setPrevproductsData] = useState(productsData);
-  const [files, setFiles] = useState<
-    { id: number; file: File | null; url: string | ArrayBuffer | null }[]
-  >([]);
+ const [productsData, setproductsData] = useState([]);
+ const [editableRowId, setEditableRowId] = useState(null);
+ const [prevproductsData, setPrevproductsData] = useState(null);
+ const [files, setFiles] = useState<
+   { id: number; file: File | null; url: string | ArrayBuffer | null }[]
+ >([]);
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+ const { data, isLoading, error } = useSWR("api/products?id=all", fetcher);
+ //console.log(data, isLoading, error)
+ useEffect(()=>{
+  if(data && data.res){ setproductsData (parseProducts(data.res))}
+},[data])
+if (isLoading) return <div>Loading</div>
+if (error ) return <div>Error</div>
+
   const handleEdit = (id) => {
     setEditableRowId(id);
     setPrevproductsData(productsData);
   };
 
   const handleSave = async (id) => {
-    setEditableRowId(null);
     const toSaveData = productsData.filter((item) => item.id === id);
     const toAddFiles = Object.values(files).filter((item) => item.id === id);
     const formdata = new FormData();
@@ -42,7 +51,7 @@ const EditableTable = ({ searchParams }) => {
       formdata.append("files", toAddFiles[i].file);
     }
     // formdata.append("files", toAddFiles);
-
+ 
     console.log("tosave", toSaveData, toAddFiles);
 
     const response = await fetch(`api/products`, {
@@ -50,7 +59,7 @@ const EditableTable = ({ searchParams }) => {
       body: formdata,
     }).then((res) => res.text());
     console.log("response", JSON.stringify(response));
-
+    setEditableRowId(null);
     // Implement logic to save changes to the backend or update state as needed
   };
 
@@ -80,7 +89,9 @@ const EditableTable = ({ searchParams }) => {
     const updateFiles = files.filter((item) => {
       return item.url !== url;
     });
+    //delete the just upload but not saved images
     setFiles(updateFiles);
+    //delete the existing images
     let deleteImageUrlInProductsData = [];
     const productsArray = productsData;
     for (let p of productsArray) {
@@ -183,7 +194,7 @@ const EditableTable = ({ searchParams }) => {
         </tbody>
       </table>
       <button onClick={addNewProduct}>Add new--</button>
-      <button>Transmit</button>
+
       <Image
         src="/uploads/images/xx.jpg"
         alt="img"

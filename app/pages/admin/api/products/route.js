@@ -1,4 +1,6 @@
 import { updateProduct } from "api/updateAPI";
+import { getProduct } from "api/getAPI";
+
 import fs from "fs";
 import path from "node:path";
 import { v4 as uuiv4 } from 'uuid';
@@ -23,9 +25,10 @@ export async function POST(request) {
       const buffer = await image.arrayBuffer();
       await fs.writeFileSync(path.join(savePath, image.name),Buffer.from(buffer, 'base64'))
       //add new file path /uploads/images to be able to show on front
-      imageUrlArray.push( path.join("/", "uploads", "images", image.name)) 
+      const imgSrcPath =("/uploads/images/"+ image.name)
+      imageUrlArray.push( imgSrcPath) 
       
-      console.log(typeof image,typeof images,"of",image.name)
+      console.log("urlarray",imgSrcPath,imageUrlArray)
     }catch (error) {
       console.log("try Image writting", error);
     } 
@@ -51,3 +54,23 @@ export async function POST(request) {
     },
   });
 }
+  export async function GET(request,response) {
+    const { searchParams } = new URL(request.url)
+    console.log("searchParams",searchParams)
+    const id = searchParams.get("id")
+    const res = await getProduct("all")
+   // console.log("res",res)
+    const product = await JSON.stringify(res)
+   
+    //return response.status(200).json(res)
+    return Response.json( {res} )
+ /*   return new Response("res", {
+      data:res,
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      },
+    });*/
+    }
