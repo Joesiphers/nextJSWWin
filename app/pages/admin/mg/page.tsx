@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default async function Page() {
   const products = await getProduct("all");
-  //console.log("products", products);
+  console.log("products", products);
   /* const url = products[0].imgurl;
   console.log("products", JSON.parse(url), url, typeof url);
   return <>"hello"</>;

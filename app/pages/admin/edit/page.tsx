@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import EditableTr from "./editAbleTr";
+import EditPage from "./editPage";
+
 const parseProducts = (productsArray) => {
   let productsDataObj = (productsArray);
   //console.log(productsArray)
@@ -20,7 +22,7 @@ const EditableTable = ({ searchParams }) => {
   //const [productsData, setProducts]=useState([])
  // const getProducts=async ()=>await getProductsSwr ("api/products?id=all");
 
-
+const [showEdit, setShowEdit]=useState(true)
  const [productsData, setproductsData] = useState([]);
  const [editableRowId, setEditableRowId] = useState(null);
  const [prevproductsData, setPrevproductsData] = useState(null);
@@ -40,6 +42,7 @@ if (error ) return <div>Error</div>
   const handleEdit = (id) => {
     setEditableRowId(id);
     setPrevproductsData(productsData);
+    setShowEdit(true)
   };
 
   const handleSave = async (id) => {
@@ -202,6 +205,7 @@ if (error ) return <div>Error</div>
         height={38}
         className="inline"
       />
+      {showEdit && <EditPage className="absolute, " />}
     </>
   );
 };
