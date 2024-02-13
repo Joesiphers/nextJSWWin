@@ -22,10 +22,10 @@ const EditableTable = ({ searchParams }) => {
   //const [productsData, setProducts]=useState([])
  // const getProducts=async ()=>await getProductsSwr ("api/products?id=all");
 
-const [showEdit, setShowEdit]=useState(true)
  const [productsData, setproductsData] = useState([]);
  const [editableRowId, setEditableRowId] = useState(null);
  const [prevproductsData, setPrevproductsData] = useState(null);
+ const [editItem, setEditItem]=useState(null)
  const [files, setFiles] = useState<
    { id: number; file: File | null; url: string | ArrayBuffer | null }[]
  >([]);
@@ -42,7 +42,13 @@ if (error ) return <div>Error</div>
   const handleEdit = (id) => {
     setEditableRowId(id);
     setPrevproductsData(productsData);
-    setShowEdit(true)
+    setEditItem(productsData.filter(i=>i.id===id) )
+    
+  };
+  const handleCancel = () => {
+        setproductsData(prevproductsData);
+    setEditableRowId(null);
+    setFiles([]);
   };
 
   const handleSave = async (id) => {
@@ -54,9 +60,7 @@ if (error ) return <div>Error</div>
       formdata.append("files", toAddFiles[i].file);
     }
     // formdata.append("files", toAddFiles);
- 
     console.log("tosave", toSaveData, toAddFiles);
-
     const response = await fetch(`api/products`, {
       method: "POST",
       body: formdata,
@@ -115,11 +119,7 @@ if (error ) return <div>Error</div>
     const updatedData = data.filter((item) => item.id !== id);
     setproductsData(updatedData);
   };
-  const handleCancel = () => {
-    setEditableRowId(null);
-    setproductsData(prevproductsData);
-    setFiles([]);
-  };
+
   const addNewProduct = () => {
     const addProductData = [
       ...productsData,
@@ -171,7 +171,7 @@ if (error ) return <div>Error</div>
                   <td className={tdcss + " w-3/12"}>{item.subtitle}</td>
                   <td className={tdcss + " w-2/12"}>
                     {item.imgurl.map((url, index) => (
-                      <Image
+                      <img
                         key={url + index}
                         src={url}
                         alt="img"
@@ -197,15 +197,35 @@ if (error ) return <div>Error</div>
         </tbody>
       </table>
       <button onClick={addNewProduct}>Add new--</button>
-
-      <Image
+      <img
         src="/uploads/images/xx.jpg"
         alt="img"
         width={38}
         height={38}
         className="inline"
       />
-      {showEdit && <EditPage className="absolute, " />}
+      <Link href={{
+        pathname:'edit/editPage',
+        query:{id:editableRowId}
+
+      }}>
+      <button >Edit newPage</button>
+</Link>
+
+      {editableRowId&& <EditPage  
+                  key={editableRowId}
+                  id={editableRowId}
+                  item={productsData[editableRowId-1]}
+                 // item={editItem}
+                  handleEdit={handleEdit}
+                  handleDeleteImage={handleDeleteImage}
+                  handleSave={handleSave}
+                  handleCancel={handleCancel}
+                  handleInputChange={handleInputChange}
+                  handleImageUpload={handleImageUpload}
+                  files={files}
+                  tdcss={tdcss}
+                 />}
     </>
   );
 };

@@ -43,7 +43,7 @@ export default function EditableTr({
             (i, index) =>
               item.id === i.id && (
                 <span key={i.name + index}>
-                  <Image
+                  <img
                     src={i.url}
                     alt="img"
                     width={38}
@@ -58,7 +58,7 @@ export default function EditableTr({
           )}
         {item.imgurl.map((url, index) => (
           <span key={index}>
-            <Image
+            <img
               src={url}
               alt="img"
               width={38}
