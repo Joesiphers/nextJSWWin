@@ -58,7 +58,8 @@ export async function POST(request) {
     const { searchParams } = new URL(request.url)
     console.log("searchParams",searchParams)
     const id = searchParams.get("id")
-    const res = await getProduct("all")
+   // console.log("id",id)
+    const res = await getProduct(id)
    // console.log("res",res)
     const product = await JSON.stringify(res)
    

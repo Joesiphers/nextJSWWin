@@ -1,44 +1,45 @@
-"use client";
-import { useState, useEffect } from "react";
+export default function EditPage({ searchParams }) {
+ retrun (<div>Loading</div> )
+}
+/*
+import { useState,useEffect} from "react"
 import useSWR from "swr";
 import Image from "next/image";
+c
 const parseProducts = (productsArray) => {
-  let productsDataObj = productsArray;
+  let productsDataObj = (productsArray);
+  //console.log(productsArray)
   let updateData = [];
   for (let i of productsDataObj) {
     updateData.push({ ...i, imgurl: JSON.parse(i.imgurl) });
-  }
-  console.log("updateData", updateData);
-
-  return updateData[0];
-};
-const tdcss = "border-solid border-2 border-indigo-600";
-const EditPage = ({ searchParams }) => {
-  const { id } = searchParams;
-  // console.log(searchParams, id, `api/products?id=${id}`, "searching");
-
-  const [item, setItem] = useState([]);
-  const [prevproductsData, setPrevproductsData] = useState(null);
-  const [files, setFiles] = useState<
-    { id: number; file: File | null; url: string | ArrayBuffer | null }[]
-  >([]);
-
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, isLoading, error } = useSWR(
-    `/pages/admin/api/products?id=${id}`,
-    fetcher,
-  );
-  //console.log(data, isLoading, error)
-  useEffect(() => {
-    if (data && data.res) {
-      setItem(parseProducts(data.res));
     }
-  }, [data]);
-  if (isLoading) return <div>Loading</div>;
-  if (error) return <div>Error</div>;
+    return updateData
+  }
+const tdcss = "border-solid border-2 border-indigo-600";
+const EditPage=({ searchParams }) => {
+  const { id } = searchParams;
+  console.log(searchParams, id, "searching")
 
+  const [productsData, setproductsData] = useState([]);
+ const [prevproductsData, setPrevproductsData] = useState(null);
+ const [files, setFiles] = useState<
+   { id: number; file: File | null; url: string | ArrayBuffer | null }[] >([]);
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+ const { data, isLoading, error } = useSWR(`api/products?id=${id}`, fetcher);
+ //console.log(data, isLoading, error)
+ useEffect(()=>{
+  if(data && data.res){ setproductsData (parseProducts(data.res))}
+},[data])
+if (isLoading) return <div>Loading</div>
+if (error ) return <div>Error</div>
+
+  const handleEdit = (id) => {
+    setEditableRowId(id);
+    setPrevproductsData(productsData);
+  };
   const handleCancel = () => {
-    setItem(prevproductsData);
+    setproductsData(prevproductsData);
     setEditableRowId(null);
     setFiles([]);
   };
@@ -58,12 +59,15 @@ const EditPage = ({ searchParams }) => {
       body: formdata,
     }).then((res) => res.text());
     console.log("response", JSON.stringify(response));
+    setEditableRowId(null);
     // Implement logic to save changes to the backend or update state as needed
   };
 
   const handleInputChange = (id, field, value) => {
-    const updatedData = { ...item, [field]: value };
-    setItem(updatedData);
+    const updatedData = productsData.map((item) =>
+      item.id === id ? { ...item, [field]: value } : item,
+    );
+    setproductsData(updatedData);
   };
   const handleImageUpload = (e, id) => {
     const choosedFiles = e.target.files;
@@ -102,11 +106,11 @@ const EditPage = ({ searchParams }) => {
       }
     }
     console.log("deleteImageUrlInProductsData", deleteImageUrlInProductsData);
-    setItem(deleteImageUrlInProductsData);
+    setproductsData(deleteImageUrlInProductsData);
   };
   const handleDelete = (id) => {
     const updatedData = data.filter((item) => item.id !== id);
-    setItem(updatedData);
+    setproductsData(updatedData);
   };
 
   const addNewProduct = () => {
@@ -120,14 +124,13 @@ const EditPage = ({ searchParams }) => {
         description: "",
       },
     ];
-    setItem(addProductData);
+    setproductsData(addProductData);
     setEditableRowId(productsData.length + 1);
   };
-
-  return (
-    <>
-      <div className={tdcss}>{item.id}</div>
-      <div className={tdcss}>
+  
+  return (   <> 
+      <div className={tdcs}>{item.id}</div>
+      <div className={tdcss }>
         <input
           className="w-full border-solid border-2 border-indigo-300"
           type="text"
@@ -145,14 +148,14 @@ const EditPage = ({ searchParams }) => {
           }
         />
       </div>
-      <div className={tdcss}>
+      <div className={tdcss }>
         <input
           className="w-full border-solid border-2 border-indigo-300"
           type="file"
           multiple
           onChange={(e) => handleImageUpload(e, item.id)}
         />
-        {/*files[0] &&
+        {files[0] &&
           files.map(
             (i, index) =>
               item.id === i.id && (
@@ -169,8 +172,8 @@ const EditPage = ({ searchParams }) => {
                   </button>
                 </span>
               ),
-              )*/}
-        {/*item.imgurl.map((url, index) => (
+          )}
+        {item.imgurl.map((url, index) => (
           <span key={index}>
             <Image
               src={url}
@@ -181,9 +184,9 @@ const EditPage = ({ searchParams }) => {
             />
             <button onClick={() => handleDeleteImage(item.id, url)}>Del</button>
           </span>
-        ))*/}
+        ))}
       </div>
-      <div className={tdcss}>
+      <div className={tdcss }>
         <textarea
           className="w-full border-solid border-2 border-indigo-300"
           rows={5}
@@ -199,8 +202,12 @@ const EditPage = ({ searchParams }) => {
           <button onClick={() => handleSave(item.id)}>Save</button>
           <button onClick={() => handleCancel(item.id)}>Cancel</button>
         </span>
-      </div>
-    </>
-  );
-};
+          </div>
+       </>)
+}
 export default EditPage;
+
+}*/
+
+}
+}

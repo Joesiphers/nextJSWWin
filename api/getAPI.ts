@@ -8,7 +8,7 @@ export async function getProject(id: number) {
   // console.log("dbquery", dbquery);
   return dbquery(query, values);
 }
-export async function getProduct(id: number |"all") {
+export async function getProduct(id: number | "all") {
   const query = `SELECT * FROM products WHERE id=$1`;
   let values;
   if (id == "all") {
@@ -23,11 +23,11 @@ export async function getProduct(id: number |"all") {
     return result;
   } else {
     values = [id];
-    console.log("dbquery", dbquery);
+    // console.log("dbquery", dbquery);
     return dbquery(query, values);
   }
 }
-export function getProductsSwr(url:string) {
+export function getProductsSwr(url: string) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, isLoading, error } = useSWR(url, fetcher);
   return { data, isLoading, error };
