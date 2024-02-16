@@ -1,4 +1,7 @@
 import { getProduct } from "api/getAPI";
+import Image from "next/image";
+
+
 export default async function Page({
   searchParams,
 }: {
@@ -7,8 +10,8 @@ export default async function Page({
   //const res = getProduct(params);
   const { id } = searchParams;
   const res = await getProduct(id);
-  //console.log("productdatails", res);
-  return <div>My Postsss: {UI(res[0])}</div>;
+  console.log("productdatails", res);
+  return <div> {UI(res[0])}</div>;
 }
 export type ProductDetails = {
   id: number;
@@ -25,10 +28,19 @@ const UI = (res: ProductDetails) => (
     <div>---- {res.subtitle}: </div>
 
     <div className="text-xl md:grid md:grid-cols-2 m-4 ">
-      <div className="">{res.features}</div>
-      <div>Image {res.imgurl}</div>
+      <div>
+      {JSON.parse(res.imgurl).map(url=>
+          <Image 
+            src={url}
+            alt="img"
+            width={500}
+            height={500}
+            className="inline"
+          />
+          )}        
+        </div>
     </div>
-    <div className="text-4xl p-4 w-5/6 m-auto">{res.description}</div>
+    <div className="text-xl p-4 w-5/6 m-auto whitespace-pre-line text-left">{res.description}</div>
     <div>{"project application cases"}</div>
   </>
 );

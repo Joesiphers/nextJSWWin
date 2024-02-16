@@ -43,7 +43,6 @@ export async function POST(request) {
       console.log("updat record fail",error);
     } 
  
- 
   
   return new Response("Hello, Next.js!", {
     status: 200,
@@ -56,7 +55,7 @@ export async function POST(request) {
 }
   export async function GET(request,response) {
     const { searchParams } = new URL(request.url)
-    console.log("searchParams",searchParams)
+   // console.log("searchParams",searchParams)
     const id = searchParams.get("id")
    // console.log("id",id)
     const res = await getProduct(id)

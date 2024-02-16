@@ -26,13 +26,14 @@ return (
         fill={true}
         style={{
           objectFit: "contain",
+          position:""
         }}
         className=""
       />
       <div className="flex justify-between mt-4 grid grid-cols-4 gap-2">
         {products.map((product, index) => (
           <div
-            className="m-2  shadow border-solid border-2 border-slate-300 rounded-md"
+            className="m-2  shadow border-solid border-2 border-slate-300 rounded-md "
             key={index}
           >
             <Link
@@ -41,14 +42,15 @@ return (
                 query: { id: product.id },
               }}
             >
-              <div>{product.title}</div>
+              <div className="text-lg h-12 m-2">{product.title}</div>
+              <div className=" h-20 blokc align-middle">
               <Image
                 src={`${product.imgurl[0]}`}
                 alt=""
-                width={38}
-                height={38}
-                className="inline"
-              />
+                width={50}
+                height={50}
+                className="m-auto"
+              /></div>
               <p>{product.subtitle}</p>
             </Link>
           </div>

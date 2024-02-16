@@ -2,6 +2,10 @@
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import Image from "next/image";
+import Button from '@mui/material/Button';
+import Stack from "@mui/material/Stack";
+
+
 const parseProducts = (productsArray) => {
   let productsDataObj = productsArray;
   let updateData = [];
@@ -12,13 +16,12 @@ const parseProducts = (productsArray) => {
 
   return updateData[0];
 };
-const tdcss = "border-solid border-2 border-indigo-600";
+const tdcss = "border-solid border-2 border-indigo-600 flex";
 const EditPage = ({ searchParams }) => {
   const { id } = searchParams;
   // console.log(searchParams, id, `api/products?id=${id}`, "searching");
 
-  const [item, setItem] = useState([]);
-  const [prevproductsData, setPrevproductsData] = useState(null);
+  const [item, setItem] = useState( {id:0,title:"",subtitle:"",imgurl:[],description:""});
   const [files, setFiles] = useState<
     { id: number; file: File | null; url: string | ArrayBuffer | null }[]
   >([]);
@@ -36,24 +39,21 @@ const EditPage = ({ searchParams }) => {
   }, [data]);
   if (isLoading) return <div>Loading</div>;
   if (error) return <div>Error</div>;
-
+  
   const handleCancel = () => {
-    setItem(prevproductsData);
-    setEditableRowId(null);
-    setFiles([]);
+   setItem(parseProducts(data.res))
   };
 
   const handleSave = async (id) => {
-    const toSaveData = productsData.filter((item) => item.id === id);
+    const toSaveData = item;
     const toAddFiles = Object.values(files).filter((item) => item.id === id);
     const formdata = new FormData();
-    formdata.append("data", JSON.stringify(toSaveData[0]));
+    formdata.append("data", JSON.stringify(toSaveData));
     for (let i = 0; i < toAddFiles.length; i++) {
       formdata.append("files", toAddFiles[i].file);
     }
-    // formdata.append("files", toAddFiles);
     console.log("tosave", toSaveData, toAddFiles);
-    const response = await fetch(`api/products`, {
+    const response = await fetch(`/pages/admin/api/products?`, {
       method: "POST",
       body: formdata,
     }).then((res) => res.text());
@@ -63,6 +63,7 @@ const EditPage = ({ searchParams }) => {
 
   const handleInputChange = (id, field, value) => {
     const updatedData = { ...item, [field]: value };
+   // console.log(updatedData,field,value, "handleinput")
     setItem(updatedData);
   };
   const handleImageUpload = (e, id) => {
@@ -88,21 +89,12 @@ const EditPage = ({ searchParams }) => {
     //delete the just upload but not saved images
     setFiles(updateFiles);
     //delete the existing images
-    let deleteImageUrlInProductsData = [];
-    const productsArray = productsData;
-    for (let p of productsArray) {
-      if (p.id === id) {
-        //p.imgurl = p.imgurl.filter((u) => u !== url);
-        let newimgurl = p.imgurl.filter((u) => u !== url);
-        const newdata = { ...p, imgurl: newimgurl };
-        console.log("i.imgurl", newdata, "productsData", productsData);
-        deleteImageUrlInProductsData.push(newdata);
-      } else {
-        deleteImageUrlInProductsData.push(p);
-      }
+    const deleteExistingImage=(item)=>{
+      let newImgurl=item.imgurl.filter(i=>i!==url)
+      setItem({...item, imgurl:newImgurl})
+      console.log("deleteImage", url, newImgurl,{...item, imgurl:newImgurl} )
     }
-    console.log("deleteImageUrlInProductsData", deleteImageUrlInProductsData);
-    setItem(deleteImageUrlInProductsData);
+    deleteExistingImage(item)
   };
   const handleDelete = (id) => {
     const updatedData = data.filter((item) => item.id !== id);
@@ -121,13 +113,16 @@ const EditPage = ({ searchParams }) => {
       },
     ];
     setItem(addProductData);
-    setEditableRowId(productsData.length + 1);
   };
 
   return (
-    <>
-      <div className={tdcss}>{item.id}</div>
+    <div className="p-8" >
       <div className={tdcss}>
+        <label className="w-1/4" >ID</label>
+        <div  className="w-full border-solid border-1 border-indigo-300 ">{item.id}</div>
+      </div>
+      <div className={tdcss} >
+        <label className="w-1/4">Title</label>
         <input
           className="w-full border-solid border-2 border-indigo-300"
           type="text"
@@ -137,22 +132,28 @@ const EditPage = ({ searchParams }) => {
       </div>
 
       <div className={tdcss}>
+      <label className="w-1/4">SubTitle</label>
+
         <textarea
           className="w-full border-solid border-2 border-indigo-300"
           value={item.subtitle}
+          rows={3}
+
           onChange={(e) =>
             handleInputChange(item.id, "subtitle", e.target.value)
           }
         />
       </div>
       <div className={tdcss}>
+        <label className="w-1/4">Images</label>
+          <span className="w-full border-solid border-2 border-indigo-300">
         <input
-          className="w-full border-solid border-2 border-indigo-300"
+          className=" "
           type="file"
           multiple
           onChange={(e) => handleImageUpload(e, item.id)}
         />
-        {/*files[0] &&
+        {files[0] &&
           files.map(
             (i, index) =>
               item.id === i.id && (
@@ -169,8 +170,8 @@ const EditPage = ({ searchParams }) => {
                   </button>
                 </span>
               ),
-              )*/}
-        {/*item.imgurl.map((url, index) => (
+              )}
+        {item.imgurl.map((url, index) => (
           <span key={index}>
             <Image
               src={url}
@@ -181,26 +182,26 @@ const EditPage = ({ searchParams }) => {
             />
             <button onClick={() => handleDeleteImage(item.id, url)}>Del</button>
           </span>
-        ))*/}
+        ))}
+        </span>
       </div>
       <div className={tdcss}>
+      <label className="w-1/4">Description</label>
         <textarea
           className="w-full border-solid border-2 border-indigo-300"
-          rows={5}
-          type="text"
+          rows={15}
           value={item.description}
           onChange={(e) =>
             handleInputChange(item.id, "description", e.target.value)
           }
         />
       </div>
-      <div className={tdcss}>
-        <span>
-          <button onClick={() => handleSave(item.id)}>Save</button>
-          <button onClick={() => handleCancel(item.id)}>Cancel</button>
-        </span>
-      </div>
-    </>
+          <Stack spacing={2} direction={"row"} justifyContent={"center"} alignItems="center" >
+        <Button  variant="contained"  onClick={() => handleSave(item.id)} >Save</Button>
+          
+          <Button  variant="contained" onClick={() => handleCancel(item.id)}>Cancel</Button>
+        </Stack>
+    </div>
   );
 };
 export default EditPage;

@@ -1,15 +1,16 @@
 import Link from "next/link";
-import ProCard from "./procard";
+import ProjectCard from "./projectCard";
 const projects = [
   {
     id: 1,
     name: "sinopec",
     title: "sinopec tank coated",
     imgUrl: "/image/sinopec.png",
+    description:"....."
   },
 ];
 export default function Projects() {
-  console.log(projects);
+ // console.log(projects);
   return (
     <div className="">
       <div>
@@ -18,8 +19,8 @@ export default function Projects() {
         </p>
       </div>
 
-      {projects.map((item, index) => {
-        return <ProCard project={item} key={index} />;
+      {projects.map((item) => {
+        return <ProjectCard project={item} key={item.id} />;
       })}
     </div>
   );
