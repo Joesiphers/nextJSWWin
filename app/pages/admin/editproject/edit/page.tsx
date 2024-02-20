@@ -14,7 +14,7 @@ export default function Page ({searchParams}){
         setInputState(updateData)
     }
     const handleImageUpload=(imgFiles)=>{
-        console.log(imgFiles, "imgs",imgFiles.length)
+        console.log(imgFiles[0], "imgs",files)
         
         for (let i=0;i<imgFiles.length;i++){
             const fileReader = new FileReader ()
@@ -27,9 +27,18 @@ export default function Page ({searchParams}){
            }
             fileReader.readAsDataURL(imgFiles[i])
         }
-        setFiles(imgFiles)
+        let updateFiles = files
+        updateFiles.push(imgFiles[0])
+        setFiles( updateFiles)
     }
-    const handleSave=()=>{}
+    const handleSave= async()=>{
+        let formData = new FormData ()
+        formData.append("data", JSON.stringify(inputState))
+       // console.log("files", files)
+        formData.append("files",files) //the files is a array of files.
+        const res= await fetch("api/")
+
+    }
     const handleCancel=()=>{
         setInputState(parseProducts(data.res)[0])
     }
@@ -37,8 +46,8 @@ export default function Page ({searchParams}){
     const {data, isLoading, error}=useGetProjectsSWR(`../api/projects?id=${id}`)
     useEffect(()=>{
         if (data && data.res) {
-            console.log (data.res)
-            const uData= parseProducts((data.res)[0])
+            console.log (data.res,"data.res")
+            const uData= parseProducts(data.res)[0]
             setInputState(uData)} },[data])
 // "api/projects?id=${id}"-->http://localhost:3000/pages/admin/editproject/api/projects?id=2
 //`../api/projects?id=${id}`--> http://localhost:3000/pages/admin/api/projects?id=2
@@ -58,6 +67,6 @@ if (isLoading) return <div>Loading</div>
            </div>
            <label htmlFor="">Deascription</label>
            <div><textarea className="w-full border-sky-500 border-2" name="" id="" cols="30" rows="10" value={inputState.description} onChange={(e)=>handleInputChange("description", e.target.value)}></textarea></div>
-            <div><Button>Save</Button> <Button onClick={handleCancel}>Cancel</Button> </div>
+            <div><Button onClick={handleSave}>Save</Button> <Button onClick={handleCancel}>Cancel</Button> </div>
            </div>
 )}
