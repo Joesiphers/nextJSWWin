@@ -17,7 +17,13 @@ export function AdminDash() {
       <div>
         manage/edit <Link href="admin/mg">product</Link>
         <Link href="admin/editmg">
-          <p> project</p>
+          
+        </Link>
+        <Link href="admin/editproject"
+        >
+        <p> project</p>
+
+
         </Link>
       </div>
     </>

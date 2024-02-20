@@ -101,20 +101,7 @@ const EditPage = ({ searchParams }) => {
     setItem(updatedData);
   };
 
-  const addNewProduct = () => {
-    const addProductData = [
-      ...productsData,
-      {
-        id: productsData.length + 1,
-        title: "",
-        subtitle: "",
-        image_url: "",
-        description: "",
-      },
-    ];
-    setItem(addProductData);
-  };
-
+  
   return (
     <div className="p-8" >
       <div className={tdcss}>

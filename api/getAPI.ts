@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import { dbquery } from "utils/db"; /*import from absolute path need to edit jsconfig.json*/
 
 export async function getProduct(id: number | "all") {
@@ -19,11 +18,6 @@ export async function getProduct(id: number | "all") {
     // console.log("dbquery", dbquery);
     return dbquery(query, values);
   }
-}
-export function getProductsSwr(url: string) {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, isLoading, error } = useSWR(url, fetcher);
-  return { data, isLoading, error };
 }
 
 //id:number||"all": string
@@ -47,9 +41,5 @@ export async function getProject(id: number | "all") {
     return dbquery(query, values);
   }
 }
-export function getProjectsSWR(url: string) {
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, isLoading, error } = useSWR(url, fetcher);
-  return { data, isLoading, error };
-}
+
 

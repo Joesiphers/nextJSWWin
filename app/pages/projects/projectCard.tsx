@@ -36,6 +36,7 @@ export default function Procard({
           />
         </div>
         <p className={`m-0  text-sm  opacity-50`}>{name}</p>
+        <p>del</p>
       </Link>
     </div>
   );
