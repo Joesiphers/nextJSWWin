@@ -22,32 +22,7 @@ export default function Page ({searchParams}){
             fileReader.onload=()=>{
                 updateUrl.push( fileReader.result)
                 setInputState(  {...inputState,imgurl:updateUrl})    
-           /*updateUrl.push( fileReader.result)
-export default function Page({ searchParams }) {
-  const [inputState, setInputState] = useState({
-    id: "",
-    subtitle: "",
-    title: "",
-    imgurl: [""],
-    description: "",
-  });
-  const [files, setFiles] = useState([]);
-  const { id } = searchParams;
-  const handleInputChange = (field, value) => {
-    const updateData = { ...inputState, [field]: value };
-    setInputState(updateData);
-  };
-  const handleImageUpload = (imgFiles) => {
-    console.log(imgFiles, "imgs", imgFiles.length);
-
-    for (let i = 0; i < imgFiles.length; i++) {
-      const fileReader = new FileReader();
-      let updateUrl = inputState.imgurl;
-      fileReader.onload = () => {
-        updateUrl.push(fileReader.result);
-        setInputState({ ...inputState, imgurl: updateUrl });
-        /*updateUrl.push( fileReader.result)
-           setInputState({...inputState, imgurl:updateUrl})*/
+           
            }
             fileReader.readAsDataURL(imgFiles[i])
         }
@@ -94,7 +69,38 @@ if (isLoading) return <div>Loading</div>
             <div><Button onClick={handleSave}>Save</Button> <Button onClick={handleCancel}>Cancel</Button> </div>
            </div>
 )}
-      };
+      
+
+/*updateUrl.push( fileReader.result)
+export default function Page({ searchParams }) {
+  const [inputState, setInputState] = useState({
+    id: "",
+    subtitle: "",
+    title: "",
+    imgurl: [""],
+    description: "",
+  });
+  const [files, setFiles] = useState([]);
+  const { id } = searchParams;
+  const handleInputChange = (field, value) => {
+    const updateData = { ...inputState, [field]: value };
+    setInputState(updateData);
+  };
+  const handleImageUpload = (imgFiles) => {
+    console.log(imgFiles, "imgs", imgFiles.length);
+
+    for (let i = 0; i < imgFiles.length; i++) {
+      const fileReader = new FileReader();
+      let updateUrl = inputState.imgurl;
+      fileReader.onload = () => {
+        updateUrl.push(fileReader.result);
+        setInputState({ ...inputState, imgurl: updateUrl });
+        /*updateUrl.push( fileReader.result)
+           setInputState({...inputState, imgurl:updateUrl})};
+
+
+
+
       fileReader.readAsDataURL(imgFiles[i]);
     }
     setFiles(imgFiles);
@@ -169,3 +175,4 @@ if (isLoading) return <div>Loading</div>
     </div>
   );
 }
+*/
