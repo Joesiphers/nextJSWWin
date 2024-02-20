@@ -1,4 +1,4 @@
-import { updateProduct } from "api/updateAPI";
+import { updatePrject } from "api/updateAPI";
 import { getProject } from "api/getAPI";
 
 import fs from "fs";
