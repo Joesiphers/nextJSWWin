@@ -4,7 +4,15 @@ export async function getProduct(id: number | "all") {
   const query = `SELECT * FROM products WHERE id=$1`;
   let values;
   if (id == "all") {
-    const result = await dbquery(`SELECT * FROM products`);
+    try{
+          const result = await dbquery(`SELECT * FROM products`);
+           return result;
+
+    }
+    catch(err){
+      return err
+      
+    }
     /* for (let i = 0; i < result.length; i++) {
       // console.log("dbquery-undefined-result", result[i].imgurl);
 
@@ -12,11 +20,16 @@ export async function getProduct(id: number | "all") {
       //  console.log("dbquery-undefined-result", result[i].imgurl);
       return result;
     }*/
-    return result;
   } else {
+
     values = [id];
     // console.log("dbquery", dbquery);
-    return dbquery(query, values);
+    try{
+          return dbquery(query, values);
+
+    }catch(err){
+      retrun err
+    }
   }
 }
 
