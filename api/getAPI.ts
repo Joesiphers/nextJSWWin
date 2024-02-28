@@ -4,14 +4,11 @@ export async function getProduct(id: number | "all") {
   const query = `SELECT * FROM products WHERE id=$1`;
   let values;
   if (id == "all") {
-    try{
-          const result = await dbquery(`SELECT * FROM products`);
-           return result;
-
-    }
-    catch(err){
-      return err
-      
+    try {
+      const result = await dbquery(`SELECT * FROM products`);
+      return result;
+    } catch (err) {
+      return err;
     }
     /* for (let i = 0; i < result.length; i++) {
       // console.log("dbquery-undefined-result", result[i].imgurl);
@@ -21,14 +18,12 @@ export async function getProduct(id: number | "all") {
       return result;
     }*/
   } else {
-
     values = [id];
     // console.log("dbquery", dbquery);
-    try{
-          return dbquery(query, values);
-
-    }catch(err){
-      retrun err
+    try {
+      return dbquery(query, values);
+    } catch (err) {
+      return err;
     }
   }
 }
@@ -54,5 +49,3 @@ export async function getProject(id: number | "all") {
     return dbquery(query, values);
   }
 }
-
-

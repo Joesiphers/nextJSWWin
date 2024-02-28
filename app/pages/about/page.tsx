@@ -11,7 +11,7 @@ export default function About() {
         <p className="text-4xl p-4">
           Specialist in protecting under extrem condition
         </p>
-
+        <div></div>
         <p>
           For 20 years experience we cooperate with German Cemaric Coating. We
           are the most experienced engineer team in applying

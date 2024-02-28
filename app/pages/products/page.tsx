@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getProduct } from "api/getAPI";
 1;
 export default async function Products() {
-  const data = await fetch("./get");
   let productsArray = await getProduct("all");
   const parseProducts = (productsArray) => {
     let productsDataObj = productsArray;
@@ -19,19 +18,20 @@ export default async function Products() {
   console.log("productsPage", products);
   return (
     <div className="w-5/6 m-auto">
-      <div>
-        <p className="text-4xl m-2">Pre-Coated Pipes</p>
+      <div className="w-5/6 my-8 mx-auto">
+        <p className="text-4xl m-4">Pre-Coated Pipes</p>
+
+        <Image
+          src="/image/coatedpipes.jpg"
+          alt="coated pips"
+          fill={true}
+          style={{
+            objectFit: "contain",
+            position: "",
+          }}
+          className=""
+        />
       </div>
-      <Image
-        src="/image/coatedpipes.jpg"
-        alt="coated pips"
-        fill={true}
-        style={{
-          objectFit: "contain",
-          position: "",
-        }}
-        className=""
-      />
       <div className="flex justify-between mt-4 grid grid-cols-4 gap-2">
         {products.map((product, index) => (
           <div
@@ -44,7 +44,7 @@ export default async function Products() {
                 query: { id: product.id },
               }}
             >
-              <div className="text-lg h-12 m-2">{product.title}</div>
+              <div className=" h-12 m-2">{product.title}</div>
               <div className=" h-20 blokc align-middle">
                 <Image
                   src={`${product.imgurl[0]}`}
