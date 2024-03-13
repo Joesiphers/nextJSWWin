@@ -13,6 +13,13 @@ export default function Component() {
   return (
     <>
       Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
+      <form action={() => signIn("Credentials",formdata )}>
+        <label>Email address</label>
+        <input type="email" />
+        <label>Password</label>
+        <input type="password" />
+        <button type="submit">Submit</button>
+        </form>
+      <button onClick={() => signIn("Credentials" )}>Sign in</button>
     </>
   )

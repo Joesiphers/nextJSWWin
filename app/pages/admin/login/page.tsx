@@ -9,7 +9,7 @@ export default function Login() {
       method: "POST",
       body: JSON.stringify(data),
     });
-  };
+  }; 
   return (
     <>
       <div> login please la </div>
