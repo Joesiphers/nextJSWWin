@@ -84,7 +84,6 @@ export default function Home() {
           </p>
         </Link>
       </div>
-      <Demo />
       <Link href="./pages/admin/login">login</Link>
     </main>
   );
