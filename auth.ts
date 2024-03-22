@@ -6,7 +6,8 @@ export const { auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       async authorize(credentials) {
-        consloe.log(credentials.get("email"), "credentials");
+        console.log("email", "credentials", credentials); //credentials.get
+        return { email: "xxx", password: "yyy" };
       },
     }),
   ],
