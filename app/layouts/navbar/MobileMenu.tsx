@@ -16,9 +16,9 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
 } from "@heroicons/react/24/outline";
-
+//show at the bottom
 const callsToAction = [
-  { name: "Watch demo", href: "#", icon: PlayCircleIcon },
+  //{ name: "Watch demo", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 
@@ -88,6 +88,7 @@ export default function MobiMenu() {
                   {item.name}
                 </a>
               ))}
+              <Popover.Button>close</Popover.Button>
             </div>
           </div>
         </Popover.Panel>

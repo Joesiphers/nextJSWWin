@@ -8,15 +8,17 @@ export const authConfig = {
   ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      console.log("email", "credentials authConfig", auth);
+      console.log("email", " authConfig", auth);
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/pages/admin");
+      console.log("isOnDashboard", isOnDashboard, isLoggedIn);
       if (isOnDashboard) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        return Response.redirect(new URL("/pages/admin/", nextUrl));
+        return Response.redirect(new URL("/pages/admin", nextUrl));
       }
+      return true;
     },
   },
 } satisfies NextAuthConfig;

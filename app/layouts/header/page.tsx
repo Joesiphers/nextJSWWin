@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Header() {
+  // console.log(auth());
   return (
     <div className="fixed z-50 w-full h-14 p-1 bg-white ">
       <Link href="/">
