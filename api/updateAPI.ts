@@ -55,3 +55,12 @@ export async function updateProject(updateProjectData) {
   //const res = dbquery(updateQuery);
   return dbquery(updateQuery, values);
 }
+export async function addUser(email, password) {
+  const values = [email, password];
+  const query = `
+  INSERT INTO users (email, password) values ($1, $2)
+  RETURNING *;
+  `;
+  const res = await dbquery(query, values);
+  console.log(res, "db res");
+}
