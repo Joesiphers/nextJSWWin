@@ -5,6 +5,6 @@ export async function signInS(formdata) {
   return await signIn("credentials", formdata);
 }
 
-export async function signOutS(formdata) {
+export async function signOutS() {
   return await signOut();
 }

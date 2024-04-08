@@ -61,6 +61,7 @@ export async function addUser(email, password) {
   INSERT INTO users (email, password) values ($1, $2)
   RETURNING *;
   `;
-  const res = await dbquery(query, values);
-  console.log(res, "db res");
+  return await dbquery(query, values);
+  //console.log(res, "db res");
+  //return res
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Navbar from "@/app/layouts/navbar/Navbar";
 import Register from "./register";
 //import LoginPage from "./login";
-import { signOut } from "@/auth";
+import { signOutS } from "./nextauth/signin";
 
 export default function AdminPage() {
   //const loggedIn = true;
@@ -29,7 +29,7 @@ export function AdminDash() {
       <form
         action={async () => {
           "use server";
-          signOut();
+          await signOutS();
         }}
       >
         <button type="submit">SignOut</button>

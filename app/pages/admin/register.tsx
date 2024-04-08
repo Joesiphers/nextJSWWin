@@ -7,6 +7,7 @@ export default async function Register() {
     const saltrount = 11;
     const hashedPassword = await bcrypt.hash(data.get("password"), saltrount);
     const res = await addUser(data.get("email"), hashedPassword);
+    console.log("add hashing user pass",res)
   };
   return (
     <div className="mt-12">
