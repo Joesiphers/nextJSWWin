@@ -1,5 +1,4 @@
 "use client";
-import { auth } from "@/auth";
 import { useFormState } from "react-dom";
 //import { useSession } from "next-auth/react";
 import { signInS, signOutS } from "./signin";
@@ -9,17 +8,20 @@ export default function Component() {
   initState.append("password", "");
 
   const action = async (prevdata, formdata) => {
-    return await signInS(formdata);
+    const res = await signInS(formdata);
+    console.log("signIn Nextauth page", res);
+    alert(res);
+    return res;
   };
 
   const [formdata, formAction] = useFormState(action, null); // [formdata, formAction]
   // const { data: session, status } = useSession();
 
-  console.log("nextaut page.ts");
+  console.log("nextauth page.ts");
   if (false) {
     return (
       <div>
-        Signed in as {auth.user} <br />
+        Signed in as {} <br />
         <button onClick={() => signOutS()}>Sign out</button>
       </div>
     );
@@ -27,7 +29,6 @@ export default function Component() {
   return (
     <>
       Not signed in <br />
-      <div>user: {toString(auth.user)}</div>
       <form action={formAction}>
         <label>email</label>
         <input type="text" name="email" />

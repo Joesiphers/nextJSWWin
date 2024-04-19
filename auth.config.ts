@@ -7,16 +7,20 @@ export const authConfig = {
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
     // while this file is also used in non-Node.js environments
-  ] ,
+  ],
   session: {
     maxAge: 24 * 60 * 60,
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      console.log("email", " authConfig", auth);
+      console.log("email", " authConfig.ts ", auth);
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/pages/admin");
-      console.log("isOnDashboard", isOnDashboard, isLoggedIn, nextUrl.pathname);
+      console.log(
+        "authConfig.ts isOnDashboard isLoggedIn",
+        isOnDashboard,
+        isLoggedIn,
+      );
       if (isOnDashboard) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page

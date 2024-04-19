@@ -1,18 +1,15 @@
 //import styles from "./admin.module.css";
+
 import Link from "next/link";
 import Navbar from "@/app/layouts/navbar/Navbar";
 import Register from "./register";
 //import LoginPage from "./login";
 import { signOutS } from "./nextauth/signin";
-
-export default function AdminPage() {
+import { auth } from "@/auth";
+export default async function AdminPage() {
   //const loggedIn = true;
-  return <AdminDash />;
-}
-export function AdminDash() {
-  {
-    /** */
-  }
+  const session = await auth();
+  console.log("admin page", session);
   return (
     <>
       <div className="relative  ">
@@ -24,6 +21,11 @@ export function AdminDash() {
         <Link href="admin/editproject">
           <p> project</p>
         </Link>
+        {session?.user ? (
+          <div>Signed In as {session.user.email} </div>
+        ) : (
+          <div>Not sign in</div>
+        )}
         <Register />
       </div>
       <form
