@@ -13,7 +13,7 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      console.log("email", " authConfig.ts ", auth);
+      console.log(" authConfig.ts auth:", auth);
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith("/pages/admin");
       console.log(

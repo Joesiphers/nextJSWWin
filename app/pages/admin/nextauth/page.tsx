@@ -17,15 +17,8 @@ export default function Component() {
   const [formdata, formAction] = useFormState(action, null); // [formdata, formAction]
   // const { data: session, status } = useSession();
 
-  console.log("nextauth page.ts");
-  if (false) {
-    return (
-      <div>
-        Signed in as {} <br />
-        <button onClick={() => signOutS()}>Sign out</button>
-      </div>
-    );
-  }
+  //  console.log("nextauth page.ts");
+
   return (
     <>
       Not signed in <br />
