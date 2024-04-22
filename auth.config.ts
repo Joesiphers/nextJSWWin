@@ -9,7 +9,7 @@ export const authConfig = {
     // while this file is also used in non-Node.js environments
   ],
   session: {
-    maxAge: 24 * 60 * 60,
+    maxAge: 60 * 60,
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
@@ -25,7 +25,11 @@ export const authConfig = {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
-        return Response.redirect(new URL("/pages/admin", nextUrl));
+        console.log("redirect nextUrl afte login", nextUrl);
+        /* return Response.redirect(
+          "https://w7csnp-3000.csb.app/pages/admin/edit",
+        );
+        */
       }
       return true;
     },

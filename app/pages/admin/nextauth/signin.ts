@@ -4,10 +4,11 @@ import { signIn, signOut } from "@/auth";
 export async function signInS(formdata) {
   //  return await signIn("credentials", formdata);
   try {
-    await signIn("credentials", formdata);
+    const result = await signIn("credentials", formdata);
+    console.log("signIns result", result);
   } catch (error) {
-    console.log("login again", error);
-    return "invalid pwd/usr";
+    console.log("signInS error received", error);
+    return "error"; //return the message to login page nextAuth/page
   }
 }
 

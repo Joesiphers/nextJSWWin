@@ -10,7 +10,7 @@ export default function Component() {
   const action = async (prevdata, formdata) => {
     const res = await signInS(formdata);
     console.log("signIn Nextauth page", res);
-    alert(res);
+    alert(res); // res from signIn()
     return res;
   };
 
