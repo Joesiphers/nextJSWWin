@@ -21,6 +21,7 @@ export default async function AdminPage() {
         <Link href="admin/editproject">
           <p> project</p>
         </Link>
+        <br/>
         {session?.user ? (
           <div>Signed In as {session.user.email} </div>
         ) : (

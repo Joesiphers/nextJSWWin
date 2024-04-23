@@ -30,6 +30,7 @@ export const { auth, signIn, signOut } = NextAuth({
         );
         console.log("compared", passwordCheck);
         if (passwordCheck) return user;
+          //throw 'localhost:3000/pages/admin'
         return null; // will throw this CredentialsSignin error type
         //throw new Error("invalid pwd");
         // will throw, error type CallbackRouteError adn the "invalid pwd" error
