@@ -1,3 +1,6 @@
+delete quite a few file. finally dont want to delte the [nextauth].route.js
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
