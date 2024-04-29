@@ -2,6 +2,7 @@ import Image from "next/image";
 
 export default function ProductCard({ productList }) {
   return (
+    <>
       {productList.map((product) => (
         <div className="m-2 w-1/6 shadow " key={product.title}>
           <div className="font-mono">{product.title}</div>
@@ -15,5 +16,6 @@ export default function ProductCard({ productList }) {
           <p className="font-serif">{product.subtitle}</p>
         </div>
       ))}
+    </>
   );
 }

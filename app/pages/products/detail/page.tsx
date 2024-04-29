@@ -1,7 +1,6 @@
 import { getProduct } from "api/getAPI";
 import Image from "next/image";
 
-
 export default async function Page({
   searchParams,
 }: {
@@ -29,18 +28,21 @@ const UI = (res: ProductDetails) => (
 
     <div className="text-xl md:grid md:grid-cols-2 m-4 ">
       <div>
-      {JSON.parse(res.imgurl).map(url=>
-          <Image 
+        {JSON.parse(res.imgurl).map((url) => (
+          <Image
+            key={res.imgurl}
             src={url}
             alt="img"
             width={500}
             height={500}
             className="inline"
           />
-          )}        
-        </div>
+        ))}
+      </div>
     </div>
-    <div className="text-xl p-4 w-5/6 m-auto whitespace-pre-line text-left">{res.description}</div>
+    <div className="text-xl p-4 w-5/6 m-auto whitespace-pre-line text-left">
+      {res.description}
+    </div>
     <div>{"project application cases"}</div>
   </>
 );

@@ -3,49 +3,34 @@
   "setupTasks": [
     {
       "name": "Install Dependencies",
-      "command": "npm install"
+      "command": "yarn install"
     }
   ],
 
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
     "dev": {
-      "name": "Start Dev Server",
-      "command": "npm run dev",
+      "name": "dev",
+      "command": "yarn dev",
       "runAtStart": true,
       "preview": {
         "port": 3000
-      },
-      "restartOn": {
-        "files": ["./package-lock.json"],
-        "branch": false,
-        "resume": false
       }
     },
     "build": {
-      "name": "Build",
-      "command": "npm run build"
+      "name": "build",
+      "command": "yarn build",
+      "runAtStart": false
     },
     "start": {
-      "name": "Start Server",
-      "command": "npm run start"
+      "name": "start",
+      "command": "yarn start",
+      "runAtStart": false
     },
     "lint": {
-      "name": "Lint",
-      "command": "npm run lint"
-    },
-    "install": {
-      "name": "Install Dependencies",
-      "command": "npm install",
-      "restartOn": {
-        "files": ["./package.json"],
-        "branch": false,
-        "resume": false
-      }
-    },
-    "yarn add @heroicons/react@2.0.18": {
-      "name": null,
-      "command": "yarn add @heroicons/react@2.0.18"
+      "name": "lint",
+      "command": "yarn lint",
+      "runAtStart": false
     }
   }
 }

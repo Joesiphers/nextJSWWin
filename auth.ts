@@ -9,6 +9,7 @@ const getUser = async (email: string) => {
   const query = `SELECT * FROM users WHERE email = $1`;
   const values = [email];
   const res = await dbquery(query, values);
+  console.log("getuser auth.ts", res);
   return res[0];
 };
 /*
