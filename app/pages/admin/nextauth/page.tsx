@@ -2,23 +2,26 @@
 import { useFormState } from "react-dom";
 //import { useSession } from "next-auth/react";
 import { signInS, signOutS } from "./signin";
-import Notice from './notice'
+import Notice from "./notice";
 import { useState } from "react";
-
+import { useRouter } from "next/navigation";
 export default function Component() {
   const initState = new FormData();
   initState.append("email", "init");
   initState.append("password", "");
-  let [content, setContent]=useState("")
-  let [isOpen, setIsOpen] = useState(true)
+  let [content, setContent] = useState("");
+  let [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const action = async (prevdata, formdata) => {
     const res = await signInS(formdata);
     console.log("signIn Nextauth page", res);
-    setIsOpen(true)
-    setContent(res)
-    
-   // alert( res); // res from signIn()
+    setIsOpen(true);
+    setContent(res);
+    if (res == "success") {
+      router.push("/pages/admin");
+    }
+    // alert( res); // res from signIn()
     //return res;
   };
 
@@ -37,7 +40,14 @@ export default function Component() {
         <input type="password" name="password" />
         <button type="submit">Submit</button>
       </form>
-       {content?<Notice title={"signIn "} content={content} isOpen={isOpen} setIsOpen={setIsOpen}/>:null}
+      {content ? (
+        <Notice
+          title={"signIn "}
+          content={content}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+      ) : null}
     </>
   );
 }

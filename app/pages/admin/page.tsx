@@ -21,22 +21,23 @@ export default async function AdminPage() {
         <Link href="admin/editproject">
           <p> project</p>
         </Link>
-        <br/>
+        <br />
         {session?.user ? (
           <div>Signed In as {session.user.email} </div>
         ) : (
           <div>Not sign in</div>
         )}
+        <form
+          action={async () => {
+            "use server";
+            await signOutS();
+          }}
+        >
+          <button type="submit">SignOut</button>
+        </form>
+        <br />
         <Register />
       </div>
-      <form
-        action={async () => {
-          "use server";
-          await signOutS();
-        }}
-      >
-        <button type="submit">SignOut</button>
-      </form>
     </>
   );
 }

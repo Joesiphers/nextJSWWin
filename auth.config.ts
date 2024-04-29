@@ -20,17 +20,18 @@ export const authConfig = {
         "authConfig.ts isOnDashboard isLoggedIn",
         isOnDashboard,
         isLoggedIn,
-        nextUrl.pathname
+        nextUrl.pathname,
       );
       if (isOnDashboard) {
-        if (isLoggedIn) {console.log ("ist");return true};
+        if (isLoggedIn) {
+          console.log("ist");
+          return true;
+        }
         //console.log("2nd")
         return false; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
         //console.log("redirect nextUrl afte login", nextUrl);
-         return Response.redirect(new URL("localhost:3000")
-        );
-        
+        return true; // Response.redirect(new URL("", nextUrl));
       }
       return true;
     },
