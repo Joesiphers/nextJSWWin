@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-export const authOptions = {
+ const authOptions = {
   // Configure one or more authentication providers
-  /*  pages: {
+  pages: {
     signIn: "pages/admin/nextauth",
-  },*/
+  },
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -40,4 +40,4 @@ export const authOptions = {
 };
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export default { handler as GET, handler as POST };

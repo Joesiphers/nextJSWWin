@@ -1,11 +1,8 @@
 import Link from "next/link";
-import useSWR from "swr";
 
 export default function About() {
   return (
     <div>
-      {typeof useSWR}
-
       <h1>About WanWei Coating </h1>
       <div className="text-center m-4 p-4">
         <p className="text-4xl p-4">

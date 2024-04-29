@@ -1,12 +1,11 @@
 import Loading from "app/layouts/loading";
-//import useSWR from "swr";
-import useSWR from "swr";
+//import useSWR from "swr"; need 'use client'
 async function fetchdata() {
   const data = await fetch(`https://qhjggy-5002.csb.app/table/select?all`);
   return data.json();
 }
 export default async function Tech() {
-  console.log("swr", typeof useSWR);
+  //console.log("swr", typeof useSWR);
   const fetcher = (...args) =>
     fetch(...args)
       .then((res) => res.json())
