@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
- const authOptions = {
+const authOptions = {
   // Configure one or more authentication providers
   pages: {
     signIn: "pages/admin/nextauth",
@@ -40,4 +40,4 @@ import CredentialsProvider from "next-auth/providers/credentials";
 };
 const handler = NextAuth(authOptions);
 
-export default { handler as GET, handler as POST };
+export { handler as GET, handler as POST };
