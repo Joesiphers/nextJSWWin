@@ -1,6 +1,6 @@
 import { dbquery } from "utils/db"; /*import from absolute path need to edit jsconfig.json*/
 
-export async function updateProduct(recordData) {
+export async function updateProduct(recordData: any) {
   //pattern recordData = {id:idNumber, column1: value1, column2: value2, column3: value3}
   const Data = recordData; //
   console.log("receivedAPIadat", Data);
@@ -34,7 +34,7 @@ const values = Object.values(recordData);
   VALUES (${valueNumber}) 
   RETURNING *;`;
   */
-export async function updateProject(updateProjectData) {
+export async function updateProject(updateProjectData: any) {
   //pattern recordData = {id:idNumber, column1: value1, column2: value2, column3: value3}
   const Data = updateProjectData; //
   console.log("receivedUpdateProjectAPIdata", Data);
