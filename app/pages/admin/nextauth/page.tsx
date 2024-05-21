@@ -35,10 +35,23 @@ export default function Component() {
       Not signed in <br />
       <form action={formAction}>
         <label>email</label>
-        <input type="text" name="email" />
+        <input
+          type="text"
+          name="email"
+          className="border border-slate-500 rounded m-2 p-2"
+        />
         <label>Password</label>
-        <input type="password" name="password" />
-        <button type="submit">Submit</button>
+        <input
+          type="password"
+          name="password"
+          className="border border-slate-500 rounded p-2 m-2"
+        />
+        <button
+          type="submit"
+          className="border border-slate-500 rounded px-2 bg-cyan-400"
+        >
+          Submit
+        </button>
       </form>
       {content ? (
         <Notice
