@@ -1,6 +1,7 @@
 "use server";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GitHub from "next-auth/providers/github";
 import { authConfig } from "./auth.config";
 import { dbquery } from "./utils/db";
 import bcrypt from "bcrypt";
@@ -19,6 +20,7 @@ class InvalidLoginError extends CredentialsSignin {
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
+    GitHub,
     Credentials({
       async authorize(credentials) {
         console.log("email", "credentials", credentials, credentials?.email); //credentials.get

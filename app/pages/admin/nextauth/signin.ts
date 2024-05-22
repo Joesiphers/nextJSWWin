@@ -1,7 +1,9 @@
 "use server";
 import { signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-
+export async function githubSignin() {
+  await signIn("github");
+}
 export async function signInS(formdata) {
   //  return await signIn("credentials", formdata);
   try {
