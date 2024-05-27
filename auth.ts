@@ -1,7 +1,7 @@
-"use server";
-import NextAuth, { CredentialsSignin } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 import { authConfig } from "./auth.config";
 import { dbquery } from "./utils/db";
 import bcrypt from "bcrypt";
@@ -13,14 +13,37 @@ const getUser = async (email: string) => {
   console.log("getuser auth.ts", res);
   return res[0];
 };
-/*
-class InvalidLoginError extends CredentialsSignin {
-  code = "InvalidLoginError check usr or pwd";
-}*/
-export const { auth, signIn, signOut } = NextAuth({
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     GitHub,
+    Google,
+    Credentials({
+      credentials: {
+        email: { label: "Email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        console.log("auth.ts ", "credentials input", credentials); //credentials.get
+        const user = await getUser(credentials.email);
+        console.log(user, "auth.ts, getuser with", credentials);
+        //compare the password here
+        const passwordCheck = await bcrypt.compare(
+          credentials.password,
+          user.password,
+        );
+        console.log("compared", passwordCheck);
+        if (passwordCheck) return user;
+        return null; // will throw this CredentialsSignin error type
+        //throw new Error("invalid pwd");
+        // will throw, error type CallbackRouteError adn the "invalid pwd" error
+      },
+    }),
+  ],
+});
+
+/**,
     Credentials({
       async authorize(credentials) {
         console.log("email", "credentials", credentials, credentials?.email); //credentials.get
@@ -38,5 +61,5 @@ export const { auth, signIn, signOut } = NextAuth({
         // will throw, error type CallbackRouteError adn the "invalid pwd" error
       },
     }),
-  ],
-});
+
+  */
