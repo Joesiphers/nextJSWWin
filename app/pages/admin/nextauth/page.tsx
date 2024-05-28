@@ -2,6 +2,8 @@
 import { useFormState } from "react-dom";
 //import { useSession } from "next-auth/react";
 import { signInS, signOutS, githubSignin } from "./signin";
+import { signIn } from "next-auth/react";
+
 import Notice from "./notice";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -30,8 +32,9 @@ export default function Component() {
 
   //  console.log("nextauth page.ts");
   const github_action = () => {
-    githubSignin();
+    signIn("github");
   };
+
   return (
     <>
       Not signed in <br />

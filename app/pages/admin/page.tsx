@@ -1,14 +1,16 @@
 //import styles from "./admin.module.css";
-
+import { auth } from "@/auth";
 import Link from "next/link";
 import Register from "./register";
 //import LoginPage from "./login";
 import { signOutS } from "./nextauth/signin";
 export default async function AdminPage() {
+  const session = await auth();
+  console.log("admin auth", session);
   return (
     <>
       <div className="relative  ">
-        navbar
+        {session?.user ? <p>login as {session.user.name}</p> : <p>no user</p>}
         <div className="  top-0 right-0 "></div>
       </div>
       <div>

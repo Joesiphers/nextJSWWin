@@ -48,10 +48,11 @@ export const authConfig = {
       return token;
     },
     async session({ session, token }) {
-      console.log("session !!", session, token);
+      // console.log("session !!", session, token);
       if (token?.accessToken) {
         session.accessToken = token.accessToken;
       }
+      session.user.id = token.id;
       return session;
     },
     /* async redirect(url) {
