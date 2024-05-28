@@ -2,8 +2,9 @@ import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
   /*pages: {
-    signIn: "/pages/admin/nextauth",
+    signIn: "/pages/contact",
   },*/
+  // basepath: "https://v9qy5n-3000.csb.app",
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
     // while this file is also used in non-Node.js environments
@@ -34,6 +35,24 @@ export const authConfig = {
         return true; // Response.redirect(new URL("", nextUrl));
       }
       return true;
+    },
+    jwt({ token, user, trigger, session, account }) {
+      if (trigger === "update") token.name = session.user.name;
+      if (account?.provider === "keycloak") {
+        return { ...token, accessToken: account.access_token };
+      }
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      console.log("session !!", session, token);
+      if (token?.accessToken) {
+        session.accessToken = token.accessToken;
+      }
+      return session;
     },
   },
 } satisfies NextAuthConfig;

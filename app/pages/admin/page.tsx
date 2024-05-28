@@ -8,8 +8,8 @@ import { signOutS } from "./nextauth/signin";
 import { auth } from "@/auth";
 export default async function AdminPage() {
   //const loggedIn = true;
-  const session = await auth();
-  console.log("admin page", session);
+  //const session = await auth();
+  // console.log("admin page", session);
   return (
     <>
       <div className="relative  ">
@@ -22,11 +22,11 @@ export default async function AdminPage() {
           <p> project</p>
         </Link>
         <br />
-        {session?.user ? (
+        {/*session?.user ?. (
           <div>Signed In as {session.user.email} </div>
         ) : (
           <div>Not sign in</div>
-        )}
+        )*/}
         <form
           action={async () => {
             "use server";

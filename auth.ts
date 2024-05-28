@@ -21,6 +21,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Google,
     Credentials({
       credentials: {
+        //for adding inputs on default signin page
         email: { label: "Email" },
         password: { label: "Password", type: "password" },
       },
@@ -42,24 +43,3 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
 });
-
-/**,
-    Credentials({
-      async authorize(credentials) {
-        console.log("email", "credentials", credentials, credentials?.email); //credentials.get
-        const user = await getUser(credentials.email);
-        console.log(user, "auth.ts, getuser");
-        //compare the password here
-        const passwordCheck = await bcrypt.compare(
-          credentials.password,
-          user.password,
-        );
-        console.log("compared", passwordCheck);
-        if (passwordCheck) return user;
-        return null; // will throw this CredentialsSignin error type
-        //throw new Error("invalid pwd");
-        // will throw, error type CallbackRouteError adn the "invalid pwd" error
-      },
-    }),
-
-  */
