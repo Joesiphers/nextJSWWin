@@ -16,9 +16,7 @@ export default async function Contact() {
     <div className="">
       <p> {user ? "logged in as " + user : "please login "}</p>
       <div>
-        <p className="text-4xl m-2">
-          contact GuangZhou WanWei email : joe@wwin.cn
-        </p>
+        <p className="text-4xl m-2">contact WanWei email : joe@wwin.cn</p>
         <form action={github_action}>
           <button type="sumit">GitHub</button>
         </form>
@@ -49,7 +47,11 @@ export default async function Contact() {
         <form
           action={async () => {
             "use server";
-            await signIn("google");
+            await signIn(
+              "google" /* {
+              callbackUrl: "http://v9qy5n-3000.csb.app/pages/admin",
+            }*/,
+            );
           }}
         >
           <button type="sumit">Google</button>

@@ -1,9 +1,9 @@
 import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
-  /*pages: {
+  pages: {
     signIn: "/pages/contact",
-  },*/
+  },
   // basepath: "https://v9qy5n-3000.csb.app",
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
@@ -54,5 +54,8 @@ export const authConfig = {
       }
       return session;
     },
+    /* async redirect(url) {
+      return "https://v9qy5n-3000.csb.app/pages/admin";
+    },*/
   },
 } satisfies NextAuthConfig;
