@@ -5,7 +5,7 @@ import Navbar from "@/app/layouts/navbar/Navbar";
 import Register from "./register";
 //import LoginPage from "./login";
 import { signOutS } from "./nextauth/signin";
-import { auth } from "@/auth-old";
+import { auth } from "@/auth";
 export default async function AdminPage() {
   //const loggedIn = true;
   const session = await auth();

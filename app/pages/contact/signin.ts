@@ -3,7 +3,7 @@ import { signIn, signOut } from "@/auth";
 
 export async function signInS() {
        await signIn("google", {
-          callbackUrl: "https://localhost:3000",
+          callbackUrl: "http://localhost:3000",
         });
       };
     

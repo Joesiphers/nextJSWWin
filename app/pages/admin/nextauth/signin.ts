@@ -1,5 +1,5 @@
 "use server";
-import { signIn, signOut } from "@/auth-old";
+import { signIn, signOut } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 export async function githubSignin() {
   await signIn("github");
