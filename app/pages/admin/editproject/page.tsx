@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { getProject } from "@/api/getAPI";
 import Link from "next/link";
 
