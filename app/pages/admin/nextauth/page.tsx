@@ -1,7 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 //import { useSession } from "next-auth/react";
-import { signInS, signOutS } from "./signin";
+import { signInS, signOutS, githubSignin } from "./signin";
 import Notice from "./notice";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,7 +29,9 @@ export default function Component() {
   // const { data: session, status } = useSession();
 
   //  console.log("nextauth page.ts");
-
+  const github_action = () => {
+    githubSignin();
+  };
   return (
     <>
       Not signed in <br />
@@ -39,6 +41,9 @@ export default function Component() {
         <label>Password</label>
         <input type="password" name="password" />
         <button type="submit">Submit</button>
+      </form>
+      <form action={github_action}>
+        <button type="sumit">GitHub</button>
       </form>
       {content ? (
         <Notice
