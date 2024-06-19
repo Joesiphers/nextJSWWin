@@ -1,3 +1,4 @@
+/*new Authjs remove middleware*/
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 
